@@ -1,0 +1,19 @@
+services:
+  db_mysql:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=crypto
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - '3306:3306'
+    restart: always
+
+    volumes:
+      - 'mysql_data:/var/lib/mysql'
+  crypto_app:
+    build:
+      context: .
+
+volumes:
+  mysql_data:
+

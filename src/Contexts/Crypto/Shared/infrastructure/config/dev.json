@@ -1,0 +1,12 @@
+{
+  "mysql": {
+    "host": "db_mysql",
+    "port": 3306,
+    "db": "crypto",
+    "password": 1234,
+    "user": "root"
+  },
+  "app": {
+    "port": 8080
+  }
+}

@@ -15,6 +15,10 @@ Then('the response status code should be {int}', async (status: number) => {
   _response = await _request.expect(status);
 });
 
+Then('the response content should be:', response => {
+  assert.deepStrictEqual(_response.body, JSON.parse(response));
+});
+
 Given('I send a PUT request to {string} with body:', (route: string, body: string) => {
   _request = request(application.httpServer).put(route).send(JSON.parse(body));
 });

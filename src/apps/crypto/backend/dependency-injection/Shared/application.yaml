@@ -1,0 +1,17 @@
+services:
+  Shared.CommandHandlersInformation:
+    class: ../../../../../Contexts/Shared/infrastructure/CommandBus/CommandHandlersInformation
+    arguments: [ '!tagged commandHandler' ]
+
+  Shared.CommandBus:
+    class: ../../../../../Contexts/Shared/infrastructure/CommandBus/InMemoryCommandBus
+    arguments: [ '@Shared.CommandHandlersInformation' ]
+
+  Shared.QueryHandlersInformation:
+    class: ../../../../../Contexts/Shared/infrastructure/QueryBus/QueryHandlersInformation
+    arguments: [ '!tagged queryHandler' ]
+
+  Shared.QueryBus:
+    class: ../../../../../Contexts/Shared/infrastructure/QueryBus/InMemoryQueryBus
+    arguments: [ '@Shared.QueryHandlersInformation' ]
+
