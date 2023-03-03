@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import container from '../dependency-injection';
-import StatusController from '../controllers/StatusGetController';
+import { CoinsGetController } from '../controllers/Coin/CoinsGetController';
 
 export const register = (router: Router) => {
-  const controller: StatusController = container.get('Apps.crypto.controllers.StatusGetController');
-  router.get('/status', (req: Request, res: Response) => controller.run(req, res));
+  const controller: CoinsGetController = container.get('Apps.crypto.controllers.CoinsGetController');
+  router.get('/coins', (req: Request, res: Response) => controller.run(req, res));
 };

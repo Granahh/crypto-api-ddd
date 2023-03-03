@@ -1,11 +1,11 @@
 import { Server } from './server';
+import cryptoConfig from '../../../Contexts/Crypto/Shared/infrastructure/config';
 
 export class CryptoBackendApp {
   server?: Server;
 
   async start() {
-    const port = process.env.PORT || '5100';
-    this.server = new Server(port);
+    this.server = new Server(cryptoConfig.get('app').port);
     return this.server.listen();
   }
 

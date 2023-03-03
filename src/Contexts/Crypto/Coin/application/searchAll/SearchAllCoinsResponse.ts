@@ -1,4 +1,4 @@
-import { Response } from '../../../Shared/domain/Response';
+import { Response } from '../../../../Shared/domain/Response';
 
 type CoinResponseItem = {
   id: string;

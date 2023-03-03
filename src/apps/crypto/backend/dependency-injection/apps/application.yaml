@@ -1,5 +1,8 @@
 services:
-
   Apps.crypto.controllers.StatusGetController:
     class: ../../controllers/StatusGetController
     arguments: []
+
+  Apps.crypto.controllers.CoinsGetController:
+    class: ../../controllers/Coin/CoinsGetController
+    arguments: ['@Shared.QueryBus']

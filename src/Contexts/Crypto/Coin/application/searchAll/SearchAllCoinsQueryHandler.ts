@@ -1,13 +1,12 @@
-import { QueryHandler } from '../../../Shared/domain/QueryHandler';
+import { QueryHandler } from '../../../../Shared/domain/QueryHandler';
 import { SearchAllCoinsResponse } from './SearchAllCoinsResponse';
 import { SearchAllCoinsQuery } from './SearchAllCoinsQuery';
-import { Query } from '../../../Shared/domain/Query';
+import { Query } from '../../../../Shared/domain/Query';
 
 export class SearchAllCoinsQueryHandler implements QueryHandler<SearchAllCoinsQuery, SearchAllCoinsResponse> {
   constructor() {}
 
   async handle(query: SearchAllCoinsQuery): Promise<SearchAllCoinsResponse> {
-    console.log('hola');
     //TODO: Create an use case with the Domain Object Coin
     return SearchAllCoinsResponse.fromDomain([
       {

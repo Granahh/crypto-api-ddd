@@ -1,5 +1,9 @@
-import { Query } from "../../../Shared/domain/Query";
+import { Query } from '../../../../Shared/domain/Query';
 
 export class SearchAllCoinsQuery implements Query {
-  constructor() { }
+  constructor() {}
+
+  static create(): SearchAllCoinsQuery {
+    return new SearchAllCoinsQuery();
+  }
 }
