@@ -1,4 +1,5 @@
 import { Response } from '../../../../Shared/domain/Response';
+import { Coin } from '../../domain/Coin';
 
 type CoinResponseItem = {
   id: string;
@@ -8,8 +9,16 @@ type CoinResponseItem = {
 export class SearchAllCoinsResponse implements Response {
   constructor(private readonly coins: CoinResponseItem[]) {}
 
-  static fromDomain(coins: CoinResponseItem[]) {
-    return new SearchAllCoinsResponse(coins);
+  static fromDomain(coins: Coin[]) {
+    return new SearchAllCoinsResponse(coins.map(this.mapCoin));
+  }
+
+  private static mapCoin(coin: Coin): CoinResponseItem {
+    return {
+      id: coin.id,
+      name: coin.name,
+      price: coin.price
+    };
   }
 
   toResponse(): { coins: CoinResponseItem[] } {

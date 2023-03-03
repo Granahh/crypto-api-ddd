@@ -2,24 +2,15 @@ import { QueryHandler } from '../../../../Shared/domain/QueryHandler';
 import { SearchAllCoinsResponse } from './SearchAllCoinsResponse';
 import { SearchAllCoinsQuery } from './SearchAllCoinsQuery';
 import { Query } from '../../../../Shared/domain/Query';
+import { AllCoinsSearcher } from './AllCoinsSearcher';
 
 export class SearchAllCoinsQueryHandler implements QueryHandler<SearchAllCoinsQuery, SearchAllCoinsResponse> {
-  constructor() {}
+  constructor(private readonly searcherCoins: AllCoinsSearcher) {}
 
   async handle(query: SearchAllCoinsQuery): Promise<SearchAllCoinsResponse> {
-    //TODO: Create an use case with the Domain Object Coin
-    return SearchAllCoinsResponse.fromDomain([
-      {
-        id: 'BTC',
-        name: 'Bitcoin',
-        price: '23000'
-      },
-      {
-        id: 'ETH',
-        name: 'Ethereum',
-        price: '13000'
-      }
-    ]);
+    const coins = await this.searcherCoins.run();
+
+    return SearchAllCoinsResponse.fromDomain(coins);
   }
 
   subscribedTo(): Query {
