@@ -1,0 +1,5 @@
+services:
+  Coin.searchAll.SearchAllCoinsQueryHandler:
+    class: ../../../../../Contexts/Crypto/Coin/application/searchAll/SearchAllCoinsQueryHandler
+    tags:
+      - { name: 'queryHandler' }
