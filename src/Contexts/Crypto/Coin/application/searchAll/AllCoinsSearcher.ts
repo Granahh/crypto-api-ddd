@@ -1,13 +1,10 @@
 import { Coin } from '../../domain/Coin';
+import { CoinRepository } from '../../domain/CoinRepository';
 
 export class AllCoinsSearcher {
-  constructor() {}
+  constructor(private readonly coinRepository: CoinRepository) {}
 
   async run(): Promise<Coin[]> {
-    return [
-      Coin.create('BTC', 'Bitcoin', '23000'),
-      Coin.create('ETH', 'Ethereum', '3000'),
-      Coin.create('BAT', 'Basic Attention Token', '1')
-    ];
+    return await this.coinRepository.searchAll();
   }
 }

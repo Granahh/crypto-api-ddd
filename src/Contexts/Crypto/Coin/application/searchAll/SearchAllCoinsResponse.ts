@@ -15,9 +15,9 @@ export class SearchAllCoinsResponse implements Response {
 
   private static mapCoin(coin: Coin): CoinResponseItem {
     return {
-      id: coin.id,
-      name: coin.name,
-      price: coin.price
+      id: coin.id.value,
+      name: coin.name.value,
+      price: coin.price.toString()
     };
   }
 

@@ -9,17 +9,17 @@ Feature: Coins Searcher
           {
              "id":"BTC",
              "name":"Bitcoin",
-             "price":"23000"
+             "price":"23000.00"
           },
           {
              "id":"ETH",
              "name":"Ethereum",
-             "price":"3000"
+             "price":"3000.00"
           },
           {
              "id":"BAT",
              "name":"Basic Attention Token",
-             "price":"1"
+             "price":"1.00"
           }
        ]
     }

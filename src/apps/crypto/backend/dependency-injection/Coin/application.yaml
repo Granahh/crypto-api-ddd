@@ -1,6 +1,10 @@
 services:
+  Coin.CoinRepository:
+    class: ../../../../../Contexts/Crypto/Coin/infrastructure/InMemoryCoinRepository
+
   Coin.searchAll.AllCoinsSearcher:
     class: ../../../../../Contexts/Crypto/Coin/application/searchAll/AllCoinsSearcher
+    arguments: ['@Coin.CoinRepository']
 
   Coin.searchAll.SearchAllCoinsQueryHandler:
     class: ../../../../../Contexts/Crypto/Coin/application/searchAll/SearchAllCoinsQueryHandler
