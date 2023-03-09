@@ -17,6 +17,7 @@ services:
       - '8080:8080'
     volumes:
       - './:/code'
+      - '/code/node_modules'
     command: npm run dev:crypto:backend
     depends_on:
       - db_mysql
