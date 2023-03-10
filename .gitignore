@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .tmp
+.idea
 logs/
 data
 test-results.xml
