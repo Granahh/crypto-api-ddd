@@ -1,37 +1,27 @@
 # TypeScript Crypto Api - DDD
 
+## Installation
+
+### Install Node version 14
+
+``nvm install 14``
+
+``nvm use 14``
+
 ## Commands
 
-### Build App
+### Run app
 
-``make build``
+``npm run dev:crypto:backend``
 
-### Start application
+### Run tests
 
-``make start``
+``npm run test``
 
-### Down application
+### Run feature tests
 
-``make down``
+``npm run test:features``
 
-### Enter pod
+### Run unit tests
 
-``make enter``
-
-### Attach logs
-
-``make logs``
-
-### Execute tests
-
-``
-make start
-``
-
-``
-make enter
-``
-
-``
-npm run test
-``
+``npm run test:unit``
