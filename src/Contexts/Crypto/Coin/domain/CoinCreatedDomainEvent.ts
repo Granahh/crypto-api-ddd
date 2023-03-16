@@ -1,22 +1,42 @@
 import { DomainEvent } from '../../../Shared/domain/DomainEvent';
 import { Coin } from './Coin';
-import { Uuid } from '../../../Shared/domain/value-object/Uuid';
+
+type CoinCreatedDomainEventAttributes = {
+  readonly id: string;
+  readonly name: string;
+  readonly price: string;
+};
 
 export class CoinCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'crypto.coin.1.coin_created';
-  constructor(private readonly id: string, private readonly name: string, private readonly price: string) {
-    super(CoinCreatedDomainEvent.EVENT_NAME, Uuid.random().toString());
+  static readonly EVENT_NAME = 'crypto.coin.coin_created';
+  constructor(
+    id: string,
+    private readonly name: string,
+    private readonly price: string,
+    eventId?: string,
+    occurredOn?: Date
+  ) {
+    super(CoinCreatedDomainEvent.EVENT_NAME, id, eventId, occurredOn);
   }
 
   static fromDomain(coin: Coin): CoinCreatedDomainEvent {
     return new CoinCreatedDomainEvent(coin.id.value, coin.name.value, coin.price.toString());
   }
-  toPrimitive(): Object {
+  toPrimitive(): CoinCreatedDomainEventAttributes {
+    const { aggregateId, name, price } = this;
     return {
-      id: this.id,
-      name: this.name,
-      price: this.price.toString(),
-      eventName: CoinCreatedDomainEvent.EVENT_NAME
+      id: aggregateId,
+      name,
+      price
     };
+  }
+
+  static fromPrimitives(
+    aggregateId: string,
+    attributes: CoinCreatedDomainEventAttributes,
+    eventId: string,
+    occurredOn: Date
+  ): DomainEvent {
+    return new CoinCreatedDomainEvent(aggregateId, attributes.name, attributes.price, eventId, occurredOn);
   }
 }

@@ -4,12 +4,8 @@ import { v4 } from 'uuid';
 import validate from 'uuid-validate';
 
 export class Uuid {
-  readonly value: string;
-
-  constructor(value: string) {
+  constructor(readonly value: string) {
     this.ensureIsValidUuid(value);
-
-    this.value = value;
   }
 
   static random(): Uuid {

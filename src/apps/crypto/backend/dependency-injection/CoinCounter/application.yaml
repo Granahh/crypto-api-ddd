@@ -1,0 +1,14 @@
+services:
+  CoinCounter.CoinCounterRepository:
+    class: ../../../../../Contexts/Crypto/CoinCounter/infrastructure/MySqlCoinCounterRepository
+    arguments: ['@Shared.ConnectionManager']
+
+  CoinCounter.increment.CoinCounterIncrementor:
+    class: ../../../../../Contexts/Crypto/CoinCounter/application/increment/CoinCounterIncrementor
+    arguments: ['@CoinCounter.CoinCounterRepository']
+
+  CoinCounter.increment.IncrementCoinCounterOnCoinCreated:
+    class: ../../../../../Contexts/Crypto/CoinCounter/application/increment/IncrementCoinCounterOnCoinCreated
+    arguments: ['@CoinCounter.increment.CoinCounterIncrementor']
+    tags:
+      - { name: 'domainEventSubscriber' }

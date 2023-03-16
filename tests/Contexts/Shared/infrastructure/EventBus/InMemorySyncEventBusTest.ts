@@ -24,6 +24,7 @@ export class InMemorySyncEventBusTest implements EventBus {
 
   async publishTest(events: Array<DomainEvent>): Promise<void> {
     const executions: any = [];
+
     events.map(event => {
       const subscribers = this.subscriptions.get(event.eventName);
       if (subscribers) {

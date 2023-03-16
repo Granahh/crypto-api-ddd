@@ -15,7 +15,6 @@ export abstract class DomainEvent {
     this.eventName = eventName;
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   abstract toPrimitive(): Object;
 }
 

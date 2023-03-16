@@ -1,4 +1,3 @@
-import { Definition } from 'node-dependency-injection';
 import { DomainEvent } from '../../../../../../src/Contexts/Shared/domain/DomainEvent';
 import { DomainEventSubscriber } from '../../../../../../src/Contexts/Shared/domain/DomainEventSubscriber';
 import { DomainEventMapping } from '../../../../../../src/Contexts/Shared/infrastructure/EventBus/DomainEventMapping';
@@ -10,26 +9,24 @@ import { InMemorySyncEventBusTest } from '../../../../../Contexts/Shared/infrast
 let eventBus: InMemorySyncEventBusTest;
 let deserializer: DomainEventJsonDeserializer;
 
-BeforeAll(async () => {
-  eventBus = container.get('Shared.EventBus');
+BeforeAll(() => {
+  eventBus = container.get<InMemorySyncEventBusTest>('Shared.EventBus');
+
   deserializer = buildDeserializer();
 });
 
 Given('I send an event to the event bus:', async (event: any) => {
   const domainEvent = deserializer.deserialize(event);
-
   await eventBus.publishTest([domainEvent!]);
 });
 
 function buildDeserializer(): DomainEventJsonDeserializer {
-  const subscriberDefinitions = container.findTaggedServiceIds('domainEventSubscriber') as Iterable<{
-    id: string;
-    definition: Definition;
-  }>;
+  const subscriberDefinitions = container.findTaggedServiceIds('domainEventSubscriber');
+
   const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [];
 
-  for (const { id } of subscriberDefinitions) {
-    subscribers.push(container.get(id));
+  for (const [key] of subscriberDefinitions.entries()) {
+    subscribers.push(container.get(key));
   }
 
   const domainEventMapping = new DomainEventMapping(subscribers);

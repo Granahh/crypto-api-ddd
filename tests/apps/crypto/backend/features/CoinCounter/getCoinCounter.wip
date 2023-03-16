@@ -1,0 +1,20 @@
+Feature: Get Coin Counter
+  Scenario:
+    Given I send an event to the event bus:
+    """
+    {
+       "data":{
+          "id":"ce924fd5-096c-4dd1-b3bb-e3cf7d15f5ea",
+          "type":"crypto.coin.coin_created",
+          "occurred_on":"2022-01-01T00:00:00.000Z",
+          "attributes":{
+             "id": "BTC",
+             "name":"Bitcoin",
+             "price":"23500"
+          }
+       },
+       "meta":{
+          "host":"111.26.06.93"
+       }
+    }
+    """
