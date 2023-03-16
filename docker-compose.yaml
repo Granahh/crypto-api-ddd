@@ -2,25 +2,17 @@ services:
   db_mysql:
     image: mysql
     environment:
-      - MYSQL_DATABASE=crypto
       - MYSQL_ROOT_PASSWORD=1234
     ports:
       - '3306:3306'
     restart: always
-
+    command: --default-authentication-plugin=mysql_native_password
+    entrypoint:
+      sh -c "
+      echo 'CREATE DATABASE IF NOT EXISTS crypto; CREATE DATABASE IF NOT EXISTS crypto_test;' > /docker-entrypoint-initdb.d/init.sql;
+      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     volumes:
       - 'mysql_data:/var/lib/mysql'
-  crypto_app:
-    build:
-      context: .
-    ports:
-      - '8080:8080'
-    volumes:
-      - './:/code'
-      - '/code/node_modules'
-    command: npm run dev:crypto:backend
-    depends_on:
-      - db_mysql
 volumes:
   mysql_data:
 

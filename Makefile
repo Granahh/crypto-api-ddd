@@ -16,20 +16,9 @@ ifndef DOCKER_COMPOSE
 	@exit 1
 endif
 
-default: build
-
-# Build image
-build:
-	docker build -t $(CRYPTO_APP_NAME):dev .
 
 start:
 	docker-compose up -d
 
-enter:
-	docker-compose exec crypto_app bash
-
 down:
 	docker-compose down
-
-logs:
-	docker-compose logs -f crypto_app

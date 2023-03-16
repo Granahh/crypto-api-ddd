@@ -1,9 +1,9 @@
 {
   "mysql": {
-    "host": "db_mysql",
+    "host": "localhost",
     "port": 3306,
-    "db": "crypto",
-    "password": 1234,
+    "db": "crypto_test",
+    "password": "1234",
     "user": "root"
   },
   "app": {

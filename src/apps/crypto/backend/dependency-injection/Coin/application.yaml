@@ -1,6 +1,7 @@
 services:
   Coin.CoinRepository:
-    class: ../../../../../Contexts/Crypto/Coin/infrastructure/InMemoryCoinRepository
+    class: ../../../../../Contexts/Crypto/Coin/infrastructure/MySqlCoinRepository
+    arguments: ['@Shared.ConnectionManager']
 
   Coin.searchAll.AllCoinsSearcher:
     class: ../../../../../Contexts/Crypto/Coin/application/searchAll/AllCoinsSearcher

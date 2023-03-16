@@ -15,3 +15,13 @@ services:
     class: ../../../../../Contexts/Shared/infrastructure/QueryBus/InMemoryQueryBus
     arguments: [ '@Shared.QueryHandlersInformation' ]
 
+  Shared.MySqlConfig:
+    factory:
+      class: ../../../../../Contexts/Crypto/Shared/infrastructure/Persistence/MySqlConfigFactory
+      method: 'createConfig'
+
+  Shared.ConnectionManager:
+    factory:
+      class: ../../../../../Contexts/Shared/infrastructure/Persistence/MySqlClientFactory
+      method: 'createPool'
+    arguments: [ 'crypto', '@Shared.MySqlConfig' ]
