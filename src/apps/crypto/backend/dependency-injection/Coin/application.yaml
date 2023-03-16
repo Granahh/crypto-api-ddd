@@ -12,3 +12,13 @@ services:
     arguments: ['@Coin.searchAll.AllCoinsSearcher']
     tags:
       - { name: 'queryHandler' }
+
+  Coin.create.CoinCreator:
+    class: ../../../../../Contexts/Crypto/Coin/application/create/CoinCreator
+    arguments: [ '@Coin.CoinRepository' ]
+
+  Coin.create.CreateCoinCommandHandler:
+    class: ../../../../../Contexts/Crypto/Coin/application/create/CreateCoinCommandHandler
+    arguments: [ '@Coin.create.CoinCreator' ]
+    tags:
+      - { name: 'commandHandler' }

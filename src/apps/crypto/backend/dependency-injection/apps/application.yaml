@@ -6,3 +6,7 @@ services:
   Apps.crypto.controllers.CoinsGetController:
     class: ../../controllers/Coin/CoinsGetController
     arguments: ['@Shared.QueryBus']
+
+  Apps.crypto.controllers.CoinPutController:
+    class: ../../controllers/Coin/CoinPutController
+    arguments: [ '@Shared.CommandBus' ]

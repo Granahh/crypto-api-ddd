@@ -4,24 +4,26 @@ import { Coin } from '../domain/Coin';
 import { CoinId } from '../domain/value-object/CoinId';
 import { CoinName } from '../domain/value-object/CoinName';
 import { CoinPrice } from '../domain/value-object/CoinPrice';
+import { Nullable } from '../../../Shared/domain/Nullable';
 
-type SearchAllCoinsResult = {
+type CoinResult = {
   id: string;
   name: string;
   price: string;
 };
 export class MySqlCoinRepository extends MySqlRepository implements CoinRepository {
   async searchAll(): Promise<Coin[]> {
-    const coinsResult = await this.executeQuery<SearchAllCoinsResult>(`SELECT id, name, price FROM coin ORDER BY id`);
+    const coinsResult = await this.executeQuery<CoinResult>(`SELECT id, name, price FROM coin ORDER BY id`);
+
     return coinsResult.rows.map(this.mapCoin);
   }
 
-  private mapCoin(result: SearchAllCoinsResult): Coin {
-    return Coin.create(
-      CoinId.fromString(result.id),
-      CoinName.fromString(result.name),
-      CoinPrice.fromString(result.price)
-    );
+  async searchById(id: CoinId): Promise<Nullable<Coin>> {
+    const coinResult = await this.executeQuery<CoinResult>(`SELECT id, name, price FROM coin WHERE id = :id`, {
+      id: id.value
+    });
+
+    return coinResult.rows.map(this.mapCoin)[0] ?? null;
   }
 
   async save(coin: Coin): Promise<void> {
@@ -30,5 +32,13 @@ export class MySqlCoinRepository extends MySqlRepository implements CoinReposito
       name: coin.name.value,
       price: coin.price.value
     });
+  }
+
+  private mapCoin(result: CoinResult): Coin {
+    return Coin.from(
+      CoinId.fromString(result.id),
+      CoinName.fromString(result.name),
+      CoinPrice.fromString(result.price)
+    );
   }
 }

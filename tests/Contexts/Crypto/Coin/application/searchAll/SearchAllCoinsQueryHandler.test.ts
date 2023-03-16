@@ -29,8 +29,8 @@ describe('SearchAllCoinsQueryHandler', () => {
 
 function coins(): Coin[] {
   return [
-    Coin.create(CoinId.fromString('BTC'), CoinName.fromString('Bitcoin'), CoinPrice.fromNumber(23_00)),
-    Coin.create(CoinId.fromString('ETH'), CoinName.fromString('Ethereum'), CoinPrice.fromNumber(1700_00)),
-    Coin.create(CoinId.fromString('BAT'), CoinName.fromString('Basic Attention Token'), CoinPrice.fromNumber(1_05))
+    Coin.from(CoinId.fromString('BTC'), CoinName.fromString('Bitcoin'), CoinPrice.fromNumber(23_00)),
+    Coin.from(CoinId.fromString('ETH'), CoinName.fromString('Ethereum'), CoinPrice.fromNumber(1700_00)),
+    Coin.from(CoinId.fromString('BAT'), CoinName.fromString('Basic Attention Token'), CoinPrice.fromNumber(1_05))
   ];
 }

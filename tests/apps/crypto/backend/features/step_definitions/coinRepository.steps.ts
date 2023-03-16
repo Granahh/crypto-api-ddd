@@ -11,5 +11,5 @@ Given('There is a coin:', async (coin: any) => {
 
   const { id, name, price } = JSON.parse(coin);
 
-  await coinRepository.save(Coin.create(CoinId.fromString(id), CoinName.fromString(name), CoinPrice.fromString(price)));
+  await coinRepository.save(Coin.from(CoinId.fromString(id), CoinName.fromString(name), CoinPrice.fromString(price)));
 });

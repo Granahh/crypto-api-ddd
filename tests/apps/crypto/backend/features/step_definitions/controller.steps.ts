@@ -41,4 +41,6 @@ Before(async () => {
 
 AfterAll(async () => {
   await application.stop();
+  const arranger = container.get<EnvironmentArranger>('Shared.EnvironmentArranger');
+  await arranger.stop();
 });

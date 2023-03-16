@@ -8,7 +8,7 @@ import { EnvironmentArranger } from '../../../Shared/infrastructure/Arranger/Env
 
 let mySqlCoinRepository: MySqlCoinRepository;
 let arranger: EnvironmentArranger;
-beforeAll(async () => {
+beforeEach(async () => {
   arranger = container.get<EnvironmentArranger>('Shared.EnvironmentArranger');
   await arranger.run();
   mySqlCoinRepository = container.get('Coin.CoinRepository');
@@ -30,18 +30,28 @@ describe('MySqlCoinRepository', () => {
   it('should save a coin', async () => {
     await expect(
       mySqlCoinRepository.save(
-        Coin.create(CoinId.fromString('NEW_COIN_ID'), CoinName.fromString('NEW_COIN'), CoinPrice.fromNumber(1))
+        Coin.from(CoinId.fromString('NEW_COIN_ID'), CoinName.fromString('NEW_COIN'), CoinPrice.fromNumber(1))
       )
     ).resolves.not.toThrow();
+  });
+
+  it('should search a coin', async () => {
+    const coin = await mySqlCoinRepository.searchById(CoinId.fromString('BTC'));
+
+    expect(coin).toEqual(expectedCoin());
   });
 });
 
 function coins(): Coin[] {
   return [
-    Coin.create(CoinId.fromString('BTC'), CoinName.fromString('Bitcoin'), CoinPrice.fromNumber(23_000.0)),
-    Coin.create(CoinId.fromString('ETH'), CoinName.fromString('Ethereum'), CoinPrice.fromNumber(3_000.0)),
-    Coin.create(CoinId.fromString('BAT'), CoinName.fromString('Basic Attention Token'), CoinPrice.fromNumber(1.0))
+    Coin.from(CoinId.fromString('BTC'), CoinName.fromString('Bitcoin'), CoinPrice.fromNumber(23_000.0)),
+    Coin.from(CoinId.fromString('ETH'), CoinName.fromString('Ethereum'), CoinPrice.fromNumber(3_000.0)),
+    Coin.from(CoinId.fromString('BAT'), CoinName.fromString('Basic Attention Token'), CoinPrice.fromNumber(1.0))
   ];
+}
+
+function expectedCoin(): Coin {
+  return Coin.from(CoinId.fromString('BTC'), CoinName.fromString('Bitcoin'), CoinPrice.fromNumber(23_000.0));
 }
 
 async function setUpDatabase(): Promise<void> {
