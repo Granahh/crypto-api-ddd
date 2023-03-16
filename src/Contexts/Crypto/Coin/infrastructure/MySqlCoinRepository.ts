@@ -12,10 +12,7 @@ type SearchAllCoinsResult = {
 };
 export class MySqlCoinRepository extends MySqlRepository implements CoinRepository {
   async searchAll(): Promise<Coin[]> {
-    const coinsResult = await this.executeQuery<SearchAllCoinsResult>(`SELECT id, name, price FROM coin`);
-
-    console.log(coinsResult.rows);
-
+    const coinsResult = await this.executeQuery<SearchAllCoinsResult>(`SELECT id, name, price FROM coin ORDER BY id`);
     return coinsResult.rows.map(this.mapCoin);
   }
 
@@ -25,5 +22,13 @@ export class MySqlCoinRepository extends MySqlRepository implements CoinReposito
       CoinName.fromString(result.name),
       CoinPrice.fromString(result.price)
     );
+  }
+
+  async save(coin: Coin): Promise<void> {
+    await this.execute(`INSERT INTO coin (id, name, price) VALUES (:id, :name, :price)`, {
+      id: coin.id.value,
+      name: coin.name.value,
+      price: coin.price.value
+    });
   }
 }
