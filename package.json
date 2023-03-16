@@ -50,6 +50,8 @@
     "nunjucks": "^3.2.3",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
+    "uuid": "^9.0.0",
+    "uuid-validate": "0.0.3",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -69,6 +71,8 @@
     "@types/node": "^16.10.2",
     "@types/nunjucks": "^3.2.0",
     "@types/supertest": "^2.0.11",
+    "@types/uuid": "^9.0.1",
+    "@types/uuid-validate": "0.0.1",
     "cucumber": "^6.0.5",
     "faker": "^5.5.3",
     "husky": "^7.0.2",

@@ -4,3 +4,7 @@ services:
   Shared.EnvironmentArranger:
     class: ../../../../../tests/Contexts/Shared/infrastructure/Persistence/MySqlEnvironmentArranger
     arguments: ['@Shared.ConnectionManager']
+
+  Shared.EventBus:
+    class: ../../../../../tests/Contexts/Shared/infrastructure/EventBus/InMemorySyncEventBusTest
+    arguments: []

@@ -15,7 +15,7 @@ services:
 
   Coin.create.CoinCreator:
     class: ../../../../../Contexts/Crypto/Coin/application/create/CoinCreator
-    arguments: [ '@Coin.CoinRepository' ]
+    arguments: [ '@Coin.CoinRepository', '@Shared.EventBus']
 
   Coin.create.CreateCoinCommandHandler:
     class: ../../../../../Contexts/Crypto/Coin/application/create/CreateCoinCommandHandler

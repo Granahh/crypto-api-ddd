@@ -1,19 +1,23 @@
 services:
   Shared.CommandHandlersInformation:
     class: ../../../../../Contexts/Shared/infrastructure/CommandBus/CommandHandlersInformation
-    arguments: [ '!tagged commandHandler' ]
+    arguments: ['!tagged commandHandler']
 
   Shared.CommandBus:
     class: ../../../../../Contexts/Shared/infrastructure/CommandBus/InMemoryCommandBus
-    arguments: [ '@Shared.CommandHandlersInformation' ]
+    arguments: ['@Shared.CommandHandlersInformation']
 
   Shared.QueryHandlersInformation:
     class: ../../../../../Contexts/Shared/infrastructure/QueryBus/QueryHandlersInformation
-    arguments: [ '!tagged queryHandler' ]
+    arguments: ['!tagged queryHandler']
 
   Shared.QueryBus:
     class: ../../../../../Contexts/Shared/infrastructure/QueryBus/InMemoryQueryBus
-    arguments: [ '@Shared.QueryHandlersInformation' ]
+    arguments: ['@Shared.QueryHandlersInformation']
+
+  Shared.EventBus:
+    class: ../../../../../Contexts/Shared/infrastructure/EventBus/InMemoryAsyncEventBus
+    arguments: []
 
   Shared.MySqlConfig:
     factory:
@@ -24,4 +28,4 @@ services:
     factory:
       class: ../../../../../Contexts/Shared/infrastructure/Persistence/MySqlClientFactory
       method: 'createPool'
-    arguments: [ 'crypto', '@Shared.MySqlConfig' ]
+    arguments: ['crypto', '@Shared.MySqlConfig']

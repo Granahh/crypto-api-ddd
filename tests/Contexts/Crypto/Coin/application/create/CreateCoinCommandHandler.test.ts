@@ -5,13 +5,24 @@ import { CreateCoinCommandMother } from './CreateCoinCommandMother';
 import { CoinIdMother } from '../../domain/value-object/CoinIdMother';
 import { CoinMother } from '../../domain/CoinMother';
 import { AlreadyExistsError } from '../../../../../../src/Contexts/Shared/domain/error/AlreadyExistsError';
+import EventBusMock from '../../../../Shared/__mocks__/EventBusMock';
+import { CoinCreatedDomainEvent } from '../../../../../../src/Contexts/Crypto/Coin/domain/CoinCreatedDomainEvent';
+import { Uuid } from '../../../../../../src/Contexts/Shared/domain/value-object/Uuid';
 
 let handler: CreateCoinCommandHandler;
 let coinRepository: CoinRepositoryMock;
+let eventBusMock: EventBusMock;
 
+beforeAll(() => {
+  jest.spyOn(Uuid, 'random').mockReturnValue(new Uuid('1c95455f-29cd-4842-ac20-be7d59ff0120'));
+});
+afterAll(() => {
+  jest.spyOn(Uuid, 'random').mockRestore();
+});
 beforeEach(() => {
   coinRepository = new CoinRepositoryMock();
-  handler = new CreateCoinCommandHandler(new CoinCreator(coinRepository));
+  eventBusMock = new EventBusMock();
+  handler = new CreateCoinCommandHandler(new CoinCreator(coinRepository, eventBusMock));
 });
 
 describe('CreateCoinCommandHandler', () => {
@@ -27,6 +38,9 @@ describe('CreateCoinCommandHandler', () => {
 
     coinRepository.assertThatSaveHasBeenCalledWith(CoinMother.default());
     coinRepository.saveHasBeenCalled();
+
+    eventBusMock.assertIsCalledTimes(1);
+    eventBusMock.assertLastPublishedEventIs(CoinCreatedDomainEvent.fromDomain(CoinMother.default()));
   });
 
   it('should fail if the coin already exists', async () => {
@@ -39,5 +53,7 @@ describe('CreateCoinCommandHandler', () => {
     coinRepository.searchByIdHasBeenCalled();
     coinRepository.assertThatSearchByIdHasBeenCalledWith(CoinIdMother.default());
     coinRepository.saveHasBeenCalled(0);
+
+    eventBusMock.assertIsCalledTimes(0);
   });
 });
