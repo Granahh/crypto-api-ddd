@@ -44,7 +44,6 @@
     "helmet": "^4.6.0",
     "http-status": "^1.5.0",
     "knex": "^2.4.2",
-    "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
     "node-dependency-injection": "^2.7.1",
     "nunjucks": "^3.2.3",
